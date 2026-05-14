@@ -30,6 +30,10 @@ public class Dashboard implements Serializable {
 
     public Dashboard() {}
 
+    public Dashboard(UserEntity user) {
+        this.user = user;
+    }
+
     public Long getId() {
         return id;
     }
@@ -37,9 +41,15 @@ public class Dashboard implements Serializable {
     public List<Entrada> getEntradas() {
         return entradas;
     }
+    public void setEntradas(List<Entrada> entradas) {
+        this.entradas = entradas;
+    }
 
     public List<Despesa> getDespesas() {
         return despesas;
+    }
+    public void setDespesas(List<Despesa> despesas) {
+        this.despesas = despesas;
     }
 
     public UserEntity getUser() {
