@@ -22,10 +22,10 @@ public class Dashboard implements Serializable {
     @JoinColumn(name="user_id")
     private UserEntity user;
 
-    @OneToMany(mappedBy = "dashboard")
+    @OneToMany(mappedBy = "dashboard", cascade = CascadeType.ALL)
     private List<Despesa> despesas = new ArrayList<>();
 
-    @OneToMany(mappedBy = "dashboard")
+    @OneToMany(mappedBy = "dashboard", cascade = CascadeType.ALL)
     private List<Entrada> entradas = new ArrayList<>();
 
     public Dashboard() {}

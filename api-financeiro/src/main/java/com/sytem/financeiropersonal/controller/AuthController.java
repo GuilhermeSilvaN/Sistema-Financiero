@@ -52,8 +52,7 @@ public class AuthController {
             // pega o usuario autenticado
             String email = authToken.getName();
 
-            UserEntity userEntity = userEntityRepository.findByEmailAndIsActiveTrue(email, true)
-                    .orElseThrow(() -> new RuntimeException("Email not found!"));
+            UserEntity userEntity = userEntityRepository.findByEmailAndIsActiveTrue(email, true);
 
             //gera o jwt;
             String token = jwtService.generateToken(email);

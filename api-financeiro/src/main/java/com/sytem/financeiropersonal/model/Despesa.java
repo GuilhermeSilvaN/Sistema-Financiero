@@ -32,6 +32,8 @@ public class Despesa implements Serializable {
     @JoinColumn(name="dashboard_id")
     private Dashboard dashboard;
 
+    public Despesa() {}
+
     public Despesa(Date dataDespesa, String descricao, String categoria, String formaPagamento, Double valor) {
         this.dataDespesa = dataDespesa;
         this.descricao = descricao;
@@ -88,4 +90,6 @@ public class Despesa implements Serializable {
     public Dashboard getDashboard() {
         return dashboard;
     }
+
+    public void setDashboard(Dashboard dashboard) { this.dashboard = dashboard; }
 }

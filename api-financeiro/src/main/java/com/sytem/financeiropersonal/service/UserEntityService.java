@@ -20,15 +20,13 @@ public class UserEntityService  implements UserDetailsService {
     }
 
     public UserEntityDTO findByUsername(String username) {
-        UserEntity userEntity = userEntityRepository.findByUsernameAndIsActive(username, true)
-                .orElseThrow(() -> new RuntimeException("User not found!"));
+        UserEntity userEntity = userEntityRepository.findByUsernameAndIsActive(username, true);
 
         return MapperUserEntity.UserEntityToUserEntityDTO(userEntity);
     }
 
     public UserEntity findByEmail(String email) {
-        UserEntity userEntity = userEntityRepository.findByEmailAndIsActiveTrue(email, true)
-                .orElseThrow(() -> new RuntimeException("Email not found!"));
+        UserEntity userEntity = userEntityRepository.findByEmailAndIsActiveTrue(email, true);
 
         return userEntity;
     }
