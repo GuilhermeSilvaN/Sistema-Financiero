@@ -55,4 +55,21 @@ public class Dashboard implements Serializable {
     public UserEntity getUser() {
         return user;
     }
+
+    public double getTotalDespesas() {
+        return despesas.stream()
+                .mapToDouble(Despesa::getValor)
+                .sum();
+    }
+
+    public double getTotalEntradas() {
+        return entradas.stream()
+                .mapToDouble(Entrada::getValor)
+                .sum();
+    }
+
+    public double getTotalSaldo(){
+        return getTotalEntradas() - getTotalDespesas();
+    }
+
 }
