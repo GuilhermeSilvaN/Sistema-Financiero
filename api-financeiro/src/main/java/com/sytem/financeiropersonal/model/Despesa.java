@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -18,7 +19,7 @@ public class Despesa implements Serializable {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
 
-    private Date dataDespesa;
+    private LocalDate dataDespesa;
 
     private String descricao;
 
@@ -34,7 +35,7 @@ public class Despesa implements Serializable {
 
     public Despesa() {}
 
-    public Despesa(Date dataDespesa, String descricao, String categoria, String formaPagamento, Double valor) {
+    public Despesa(LocalDate dataDespesa, String descricao, String categoria, String formaPagamento, Double valor) {
         this.dataDespesa = dataDespesa;
         this.descricao = descricao;
         this.categoria = categoria;
@@ -46,11 +47,11 @@ public class Despesa implements Serializable {
         return id;
     }
 
-    public Date getDataDespesa() {
+    public LocalDate getDataDespesa() {
         return dataDespesa;
     }
 
-    public void setDataDespesa(Date dataDespesa) {
+    public void setDataDespesa(LocalDate dataDespesa) {
         this.dataDespesa = dataDespesa;
     }
 

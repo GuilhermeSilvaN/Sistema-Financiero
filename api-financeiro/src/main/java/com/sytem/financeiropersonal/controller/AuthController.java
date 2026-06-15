@@ -8,6 +8,8 @@ import com.sytem.financeiropersonal.mapper.MapperUserEntity;
 import com.sytem.financeiropersonal.model.UserEntity;
 import com.sytem.financeiropersonal.repository.UserEntityRepository;
 import com.sytem.financeiropersonal.service.JwtService;
+import com.sytem.financeiropersonal.service.UserEntityService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -21,17 +23,20 @@ import org.springframework.web.bind.annotation.*;
 public class AuthController {
 
     private final UserEntityRepository userEntityRepository;
+    private final UserEntityService userEntityService;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
     private final JwtService jwtService;
 
     public AuthController (
             UserEntityRepository userEntityRepository,
+            UserEntityService userEntityService,
             PasswordEncoder passwordEncoder,
             AuthenticationManager authenticationManager,
             JwtService jwtService
     ) {
         this.userEntityRepository = userEntityRepository;
+        this.userEntityService = userEntityService;
         this.passwordEncoder = passwordEncoder;
         this.authenticationManager = authenticationManager;
         this.jwtService = jwtService;
@@ -72,12 +77,17 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<UserEntityDTO> registerUser(@RequestBody UserEntityDTOCreate userCreate){
+        UserEntity userExists = userEntityService.findByEmail(userCreate.email());
+        if(userExists != null){
+            return ResponseEntity.status(HttpStatus.CONFLICT).build();
+        }
         UserEntity userEntity = MapperUserEntity.UserEntityDTOCreateToUserEntity(userCreate);
         userEntity.setPassword(passwordEncoder.encode(userCreate.password()));
-
         userEntityRepository.save(userEntity);
 
-        return ResponseEntity.ok().body(MapperUserEntity.UserEntityToUserEntityDTO(userEntity));
+        UserEntityDTO response = MapperUserEntity.UserEntityToUserEntityDTO(userEntity);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     @GetMapping

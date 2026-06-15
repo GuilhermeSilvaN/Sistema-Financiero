@@ -2,17 +2,18 @@ package com.sytem.financeiropersonal.dto;
 
 import com.sytem.financeiropersonal.model.Entrada;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public record EntradaDTO(
         Long id,
-        Date dataEntrada,
+        LocalDate dataEntrada,
         String descricao,
         Double valor
 ) {
     public EntradaDTO (
             Long id,
-            Date dataEntrada,
+            LocalDate dataEntrada,
             String descricao,
             Double valor
     ) {

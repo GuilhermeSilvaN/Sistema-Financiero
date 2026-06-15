@@ -1,6 +1,5 @@
 package com.sytem.financeiropersonal.test;
 
-import com.sytem.financeiropersonal.mapper.MapperUserEntity;
 import com.sytem.financeiropersonal.model.Dashboard;
 import com.sytem.financeiropersonal.model.Despesa;
 import com.sytem.financeiropersonal.model.Entrada;
@@ -13,8 +12,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
-import java.util.Date;
-import java.util.Optional;
+import java.time.LocalDate;
 
 @Configuration
 @Profile("dev")
@@ -54,14 +52,14 @@ public class TestConfig implements CommandLineRunner {
 
         // ENTRADAS
         Entrada entrada1 = new Entrada(
-                new Date(2026, 5, 5),
+                LocalDate.of(2026, 5, 5),
                 "Salário",
                 3500.0
         );
         entrada1.setDashboard(dashboard_1);
 
         Entrada entrada2 = new Entrada(
-                new Date(2026, 5, 15),
+                LocalDate.of(2026, 5, 15),
                 "venda",
                 120.00
         );
@@ -72,7 +70,7 @@ public class TestConfig implements CommandLineRunner {
 
         // DESPESAS
         Despesa despesa1 = new Despesa(
-                new Date(2026, 5, 5),
+                LocalDate.of(2026, 5, 15),
                 "Aluguel",
                 "Moradia",
                 "PIX",
@@ -81,7 +79,7 @@ public class TestConfig implements CommandLineRunner {
         despesa1.setDashboard(dashboard_1);
 
         Despesa despesa2 = new Despesa(
-                new Date(2026, 5, 10),
+                LocalDate.of(2026, 5, 10),
                 "Internet",
                 "Serviços",
                 "Cartão",

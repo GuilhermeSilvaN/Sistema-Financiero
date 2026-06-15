@@ -9,7 +9,6 @@ import java.util.List;
 
 @Repository
 public interface DashboardRepository extends JpaRepository<Dashboard, Long> {
-    Dashboard findByIdDashboard(Long id);
-    Dashboard findByIdDashboardAndUserEntity(long id_dashboard, UserEntity userEntity);
-    List<Dashboard> findAllDashboardByUserEntity(UserEntity userEntity);
+    Dashboard findByIdAndUserEntity(Long id_dashboard, UserEntity userEntity);
+    List<Dashboard> findByUserEntity(UserEntity userEntity);
 }

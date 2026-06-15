@@ -13,8 +13,8 @@ import java.util.List;
 
 @Service
 public class DespesaService {
-    private DespesaRepository despesaRepository;
-    private DashboardRepository dashboardRepository;
+    private final DespesaRepository despesaRepository;
+    private final DashboardRepository dashboardRepository;
 
     public DespesaService(
             DespesaRepository despesaRepository,
@@ -26,7 +26,8 @@ public class DespesaService {
 
     //getAll
     public List<DespesaDTO> findAllByDashboard(Long id_dashboard) {
-        Dashboard dashboard = dashboardRepository.findByIdDashboard(id_dashboard);
+        Dashboard dashboard = dashboardRepository.findById(id_dashboard)
+                .orElseThrow(() -> new RuntimeException("dashboard nao encontrado"));
         List<Despesa> despesas = dashboard.getDespesas();
         return despesas.stream().map(MapperDespesa::despesaToDespesaDTO).toList();
     }
@@ -41,7 +42,8 @@ public class DespesaService {
     //create a new despesa (dashboard id : Long; DespesaDTOCreate : record)
     public DespesaDTO createDespesa(Long id_dashboard, DespesaDTOCreate  despesaDTOCreate) {
         Despesa despesa = MapperDespesa.despesaDTOCreateToDespesa(despesaDTOCreate);
-        Dashboard dashboard = dashboardRepository.findByIdDashboard(id_dashboard);
+        Dashboard dashboard = dashboardRepository.findById(id_dashboard)
+                .orElseThrow(() -> new RuntimeException("dashboard nao encontrado"));
         despesa.setDashboard(dashboard);
 
         despesaRepository.save(despesa);
@@ -53,7 +55,8 @@ public class DespesaService {
     public DespesaDTO updateDespesa(Long id_despesa, Long id_dashboard, DespesaDTOCreate  despesaDTOCreate) {
         Despesa despesa = despesaRepository.findById(id_despesa)
                 .orElseThrow(() -> new RuntimeException("Despesa inexistente"));
-        Dashboard dashboard = dashboardRepository.findByIdDashboard(id_dashboard);
+        Dashboard dashboard = dashboardRepository.findById(id_dashboard)
+                .orElseThrow(() -> new RuntimeException("dashboard nao encontrado"));
         despesa.setDashboard(dashboard);
 
         MapperDespesa.updateDespesa(despesa, despesaDTOCreate);

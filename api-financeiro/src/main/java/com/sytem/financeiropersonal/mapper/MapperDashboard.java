@@ -7,7 +7,7 @@ import com.sytem.financeiropersonal.model.Dashboard;
 public class MapperDashboard {
     public static Dashboard dashboardDTOCreateToDashboard(DashboardDTOCreate dashboardDTOCreate) {
         Dashboard dashboard = new Dashboard(
-                dashboardDTOCreate.user()
+                dashboardDTOCreate.userEntity()
         );
         dashboard.getEntradas().addAll(dashboardDTOCreate.entradas());
         dashboard.getDespesas().addAll(dashboardDTOCreate.despesas());
@@ -25,7 +25,7 @@ public class MapperDashboard {
 
     public static DashboardDTOCreate dashboardToDashboardDTOCreate(Dashboard dashboard) {
         return new DashboardDTOCreate(
-                dashboard.getUser(),
+                dashboard.getUserEntity(),
                 dashboard.getDespesas(),
                 dashboard.getEntradas()
         );

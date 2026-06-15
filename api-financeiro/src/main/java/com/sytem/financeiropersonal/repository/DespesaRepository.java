@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface DespesaRepository extends JpaRepository<Despesa, Long> {
-    List<Despesa> findByIdDashboard(Long idDashboard);
+    List<Despesa> findByDashboard(Long id_dashboard);
 }

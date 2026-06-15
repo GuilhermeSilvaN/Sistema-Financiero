@@ -8,16 +8,16 @@ import com.sytem.financeiropersonal.model.UserEntity;
 import java.util.List;
 
 public record DashboardDTOCreate(
-        UserEntity user,
+        UserEntity userEntity,
         List<Despesa> despesas,
         List<Entrada> entradas
 ) {
     public DashboardDTOCreate(
-            UserEntity user,
+            UserEntity userEntity,
             List<Despesa> despesas,
             List<Entrada> entradas
     ){
-        this.user = user;
+        this.userEntity = userEntity;
         this.despesas = despesas;
         this.entradas = entradas;
     }
@@ -26,7 +26,7 @@ public record DashboardDTOCreate(
             Dashboard dashboard
     ){
         this(
-                dashboard.getUser(),
+                dashboard.getUserEntity(),
                 dashboard.getDespesas(),
                 dashboard.getEntradas()
         );

@@ -30,7 +30,7 @@ public class UserEntity implements Serializable {
     @Column(name="is_active")
     private Boolean isActive;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "userEntity")
     private List<Dashboard> dashboards = new ArrayList<>();
 
     public UserEntity() {}

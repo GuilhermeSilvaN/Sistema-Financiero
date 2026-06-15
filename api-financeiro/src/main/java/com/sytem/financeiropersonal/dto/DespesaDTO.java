@@ -2,18 +2,19 @@ package com.sytem.financeiropersonal.dto;
 
 import com.sytem.financeiropersonal.model.Despesa;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public record DespesaDTO(
         Long id,
-        Date dataDespesa,
+        LocalDate dataDespesa,
         String descricao,
         String categoria,
         String formaPagamento,
         Double valor
 ) {
     public DespesaDTO(
-            Long id, Date dataDespesa, String  descricao, String categoria, String formaPagamento, Double valor
+            Long id, LocalDate dataDespesa, String  descricao, String categoria, String formaPagamento, Double valor
     ){
         this.id = id;
         this.dataDespesa = dataDespesa;

@@ -20,7 +20,7 @@ public class Dashboard implements Serializable {
 
     @ManyToOne
     @JoinColumn(name="user_id")
-    private UserEntity user;
+    private UserEntity userEntity;
 
     @OneToMany(mappedBy = "dashboard", cascade = CascadeType.ALL)
     private List<Despesa> despesas = new ArrayList<>();
@@ -30,8 +30,8 @@ public class Dashboard implements Serializable {
 
     public Dashboard() {}
 
-    public Dashboard(UserEntity user) {
-        this.user = user;
+    public Dashboard(UserEntity userEntity) {
+        this.userEntity = userEntity;
     }
 
     public Long getId() {
@@ -52,8 +52,8 @@ public class Dashboard implements Serializable {
         this.despesas = despesas;
     }
 
-    public UserEntity getUser() {
-        return user;
+    public UserEntity getUserEntity() {
+        return userEntity;
     }
 
     public double getTotalDespesas() {

@@ -27,14 +27,14 @@ public class DashboardService {
     public List<DashboardDTO> findAllDashboard(String email ){
         UserEntity userEntity = userEntityRepository.findByEmailAndIsActiveTrue(email, true);
 
-        List<Dashboard> dashboards = dashboardRepository.findAllDashboardByUserEntity(userEntity);
+        List<Dashboard> dashboards = dashboardRepository.findByUserEntity(userEntity);
 
         return dashboards.stream().map(MapperDashboard::dashboardToDashboardDTO).toList();
     }
     //getById;
     public DashboardDTO findDashboardById(Long id, String email){
         UserEntity userEntity = userEntityRepository.findByEmailAndIsActiveTrue(email, true);
-        Dashboard dashboard = dashboardRepository.findByIdDashboardAndUserEntity(id, userEntity);
+        Dashboard dashboard = dashboardRepository.findByIdAndUserEntity(id, userEntity);
         return MapperDashboard.dashboardToDashboardDTO(dashboard);
     }
 
