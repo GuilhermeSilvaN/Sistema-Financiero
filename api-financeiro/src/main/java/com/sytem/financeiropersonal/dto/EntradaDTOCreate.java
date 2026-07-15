@@ -6,12 +6,12 @@ import java.time.LocalDate;
 import java.util.Date;
 
 public record EntradaDTOCreate(
-        LocalDate dataEntrada,
+        String dataEntrada,
         String descricao,
         Double valor
 ) {
     public EntradaDTOCreate (
-            LocalDate dataEntrada,
+            String dataEntrada,
             String descricao,
             Double valor
     ) {

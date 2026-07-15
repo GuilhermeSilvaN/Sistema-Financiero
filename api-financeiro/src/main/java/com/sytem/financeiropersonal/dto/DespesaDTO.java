@@ -7,14 +7,14 @@ import java.util.Date;
 
 public record DespesaDTO(
         Long id,
-        LocalDate dataDespesa,
+        String dataDespesa,
         String descricao,
         String categoria,
         String formaPagamento,
         Double valor
 ) {
     public DespesaDTO(
-            Long id, LocalDate dataDespesa, String  descricao, String categoria, String formaPagamento, Double valor
+            Long id, String dataDespesa, String  descricao, String categoria, String formaPagamento, Double valor
     ){
         this.id = id;
         this.dataDespesa = dataDespesa;

@@ -7,13 +7,13 @@ import java.util.Date;
 
 public record EntradaDTO(
         Long id,
-        LocalDate dataEntrada,
+        String dataEntrada,
         String descricao,
         Double valor
 ) {
     public EntradaDTO (
             Long id,
-            LocalDate dataEntrada,
+            String dataEntrada,
             String descricao,
             Double valor
     ) {

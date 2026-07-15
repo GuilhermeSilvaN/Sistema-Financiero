@@ -1,23 +1,20 @@
 package com.sytem.financeiropersonal.dto;
 
-import com.sytem.financeiropersonal.model.Dashboard;
-import com.sytem.financeiropersonal.model.Despesa;
-import com.sytem.financeiropersonal.model.Entrada;
-import com.sytem.financeiropersonal.model.UserEntity;
+import com.sytem.financeiropersonal.model.*;
 
 import java.util.List;
 
 public record DashboardDTOCreate(
-        UserEntity userEntity,
+        MesDashboard mesDashboard,
         List<Despesa> despesas,
         List<Entrada> entradas
 ) {
     public DashboardDTOCreate(
-            UserEntity userEntity,
+            MesDashboard mesDashboard,
             List<Despesa> despesas,
             List<Entrada> entradas
     ){
-        this.userEntity = userEntity;
+        this.mesDashboard = mesDashboard;
         this.despesas = despesas;
         this.entradas = entradas;
     }
@@ -26,7 +23,7 @@ public record DashboardDTOCreate(
             Dashboard dashboard
     ){
         this(
-                dashboard.getUserEntity(),
+                dashboard.getMes(),
                 dashboard.getDespesas(),
                 dashboard.getEntradas()
         );

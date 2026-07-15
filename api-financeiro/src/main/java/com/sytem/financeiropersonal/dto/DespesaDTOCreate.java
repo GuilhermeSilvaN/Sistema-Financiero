@@ -6,14 +6,14 @@ import java.time.LocalDate;
 import java.util.Date;
 
 public record DespesaDTOCreate(
-        LocalDate dataDespesa,
+        String dataDespesa,
         String descricao,
         String categoria,
         String formaPagamento,
         Double valor
 ) {
     public DespesaDTOCreate(
-            LocalDate dataDespesa, String  descricao, String categoria, String formaPagamento, Double valor
+            String dataDespesa, String descricao, String categoria, String formaPagamento, Double valor
     ){
         this.dataDespesa = dataDespesa;
         this.descricao = descricao;
