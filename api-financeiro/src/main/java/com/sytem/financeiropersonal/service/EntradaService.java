@@ -27,9 +27,7 @@ public class EntradaService {
 
     //getAll
     public List<EntradaDTO> findAllByDashboard(Long id_dashboard){
-        Dashboard dashboard = dashboardRepository.findById(id_dashboard)
-                .orElseThrow(() -> new RuntimeException("dashboard nao encontrado"));
-        List<Entrada> entradas = dashboard.getEntradas();
+        List<Entrada> entradas = entradaRepository.findByDashboardId(id_dashboard);
         return entradas.stream().map(MapperEntrada::entradaToEntradaDTO).toList();
     }
 
@@ -41,26 +39,32 @@ public class EntradaService {
     }
 
     //create (dashboard id : Long; EntradaDTOCreate)
-    public EntradaDTO createEntrada(Long id_dashboard, EntradaDTOCreate  entradaDTOCreate){
-        Entrada entrada = MapperEntrada.entradaDTOCreateToEntrada(entradaDTOCreate);
+    public EntradaDTO createEntrada(Long id_dashboard, EntradaDTOCreate entradaDTOCreate){
         Dashboard dashboard = dashboardRepository.findById(id_dashboard)
                 .orElseThrow(() -> new RuntimeException("dashboard nao encontrado"));
-        entrada.setDashboard(dashboard);
 
-        entradaRepository.save(entrada);
+        Entrada entrada = MapperEntrada.entradaDTOCreateToEntrada(entradaDTOCreate);
+        entrada.setDashboard(dashboard);
+        entrada = entradaRepository.save(entrada);
 
         return MapperEntrada.entradaToEntradaDTO(entrada);
     }
 
     //updateById (Long Entrada_id, EntradaDTOCreate entradaDTOCreate, Long idDashboard)
-    public EntradaDTO updateEntrada(Long id_entrada, Long id_dashboard, EntradaDTOCreate entradaDTOCreate){
+    public EntradaDTO updateEntrada(
+            Long id_dashboard,
+            Long id_entrada,
+            EntradaDTOCreate entradaDTOCreate
+    ){
+        Dashboard dashboard = dashboardRepository.findById(id_dashboard)
+                .orElseThrow(() -> new RuntimeException("dashboard nao encontrado"));
 
         Entrada entrada = entradaRepository.findById(id_entrada)
                 .orElseThrow(() -> new RuntimeException("Entrada inexistente"));
 
-        Dashboard dashboard = dashboardRepository.findById(id_dashboard)
-                .orElseThrow(() -> new RuntimeException("dashboard nao encontrado"));//procura pelo dashboard passado por id;
-        entrada.setDashboard(dashboard); //setta o dashboard;
+        if(!entrada.getDashboard().getId().equals(dashboard.getId())){
+            throw new RuntimeException("Esta entrada não corresponde ao dashboard");
+        }
 
         MapperEntrada.updateEntrada(entrada, entradaDTOCreate); //faz o update;
         entradaRepository.save(entrada); //salva a entrada;
@@ -69,7 +73,10 @@ public class EntradaService {
     }
 
     //deleteById
-    public void deleteEntrada(Long id){
-        entradaRepository.deleteById(id);
+    public void deleteEntrada(Long id_entrada, Long id_dashboard){
+        Entrada entrada = entradaRepository
+                .findByIdAndDashboardId(id_entrada, id_dashboard)
+                .orElseThrow(() -> new RuntimeException("Entrada inexistente"));
+        entradaRepository.delete(entrada);
     }
 }
