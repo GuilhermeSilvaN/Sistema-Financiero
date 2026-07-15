@@ -1,11 +1,13 @@
 package com.sytem.financeiropersonal.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 @Entity
@@ -19,6 +21,7 @@ public class Despesa implements Serializable {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
 
+    @JsonFormat(pattern = "dd/mm/yyyy")
     private LocalDate dataDespesa;
 
     private String descricao;
@@ -35,8 +38,8 @@ public class Despesa implements Serializable {
 
     public Despesa() {}
 
-    public Despesa(LocalDate dataDespesa, String descricao, String categoria, String formaPagamento, Double valor) {
-        this.dataDespesa = dataDespesa;
+    public Despesa(String dataDespesaString, String descricao, String categoria, String formaPagamento, Double valor) {
+        setDataDespesa(dataDespesaString);
         this.descricao = descricao;
         this.categoria = categoria;
         this.formaPagamento = formaPagamento;
@@ -47,12 +50,16 @@ public class Despesa implements Serializable {
         return id;
     }
 
-    public LocalDate getDataDespesa() {
-        return dataDespesa;
+    public String getDataDespesa() {
+        //convert LocalDate to String
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        return formatter.format(dataDespesa);
     }
 
-    public void setDataDespesa(LocalDate dataDespesa) {
-        this.dataDespesa = dataDespesa;
+    public void setDataDespesa(String dataDespesa) {
+        //convert String to LocalDate
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        this.dataDespesa = LocalDate.parse(dataDespesa, formatter);
     }
 
     public String getDescricao() {

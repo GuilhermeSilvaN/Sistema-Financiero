@@ -1,11 +1,13 @@
 package com.sytem.financeiropersonal.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 @Entity
@@ -18,6 +20,7 @@ public class Entrada implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @JsonFormat(pattern = "dd/mm/yyyy")
     private LocalDate dataEntrada;
 
     private String descricao;
@@ -30,14 +33,26 @@ public class Entrada implements Serializable {
 
     public Entrada() {}
 
-    public Entrada(LocalDate dataEntrada, String descricao, Double valor) {
-        this.dataEntrada = dataEntrada;
+    public Entrada(String dataEntradaString, String descricao, Double valor) {
+        setDataEntrada(dataEntradaString);
         this.descricao = descricao;
         this.valor = valor;
     }
 
     public Long getId() {
         return id;
+    }
+
+    public String getDataEntrada() {
+        //convert LocalDate to String;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        return formatter.format(dataEntrada);
+    }
+
+    public void setDataEntrada(String dataEntrada) {
+        //convert String to LocalDate;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        this.dataEntrada = LocalDate.parse(dataEntrada, formatter);
     }
 
     public String getDescricao() {
@@ -54,14 +69,6 @@ public class Entrada implements Serializable {
 
     public void setValor(Double valor) {
         this.valor = valor;
-    }
-
-    public LocalDate getDataEntrada() {
-        return dataEntrada;
-    }
-
-    public void setDataEntrada(LocalDate dataEntrada) {
-        this.dataEntrada = dataEntrada;
     }
 
     @JsonIgnore

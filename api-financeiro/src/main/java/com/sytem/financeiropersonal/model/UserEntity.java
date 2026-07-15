@@ -1,5 +1,6 @@
 package com.sytem.financeiropersonal.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serial;
@@ -30,8 +31,8 @@ public class UserEntity implements Serializable {
     @Column(name="is_active")
     private Boolean isActive;
 
-    @OneToMany(mappedBy = "userEntity")
-    private List<Dashboard> dashboards = new ArrayList<>();
+    @OneToMany(mappedBy="userEntity", cascade=CascadeType.ALL,  orphanRemoval=true)
+    private List<MesDashboard> mesDashboards = new ArrayList<>();
 
     public UserEntity() {}
 
@@ -70,7 +71,6 @@ public class UserEntity implements Serializable {
 
     public void setIsActive(Boolean isActive) { this.isActive = isActive; }
 
-    public List<Dashboard> getDashboards() {
-        return dashboards;
-    }
+    @JsonIgnore
+    public List<MesDashboard> getMesDashboards() { return mesDashboards; }
 }
