@@ -20,39 +20,43 @@ public class EntradaController {
         this.entradaService = entradaService;
     }
 
-    @GetMapping("list/{id}")
+    @GetMapping("/{id_dashboard}")
     public ResponseEntity<List<EntradaDTO>> findAll(@PathVariable Long id_dashboard) {
         return ResponseEntity.ok().body(entradaService.findAllByDashboard(id_dashboard));
     }
 
-    @GetMapping("/{id_entrada}")
+    @GetMapping("/entr/{id_entrada}")
     public ResponseEntity<EntradaDTO> findByid(@PathVariable Long id_entrada) {
         return ResponseEntity.ok().body(entradaService.findById(id_entrada));
     }
 
-    @PostMapping
+    @PostMapping("/{id_mesdashboard}")
     public ResponseEntity<EntradaDTO> create(
-            @RequestBody Long id_dashboard,
+            @PathVariable Long id_mesdashboard,
             @RequestBody EntradaDTOCreate entradaDTOCreate
     ) {
-        EntradaDTO entrada = entradaService.createEntrada(id_dashboard, entradaDTOCreate);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id_entrada}").buildAndExpand(entrada.id()).toUri();
+        EntradaDTO entrada = entradaService.createEntrada(id_mesdashboard, entradaDTOCreate);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(entrada.id()).toUri();
+
         return ResponseEntity.created(uri).body(entrada);
     }
-
-    @PutMapping("/{id}")
+    //update by id_dashboard and id_entrada;
+    @PutMapping("/{id_dashboard}/{id_entrada}")
     public ResponseEntity<EntradaDTO> update(
+            @PathVariable Long id_dashboard,
             @PathVariable Long id_entrada,
-            @RequestBody Long id_dashboard,
             @RequestBody EntradaDTOCreate entradaDTOCreate
     ){
-        return ResponseEntity.ok().body(entradaService.updateEntrada(id_entrada, id_dashboard, entradaDTOCreate));
+        return ResponseEntity.ok().body(entradaService.updateEntrada(id_dashboard, id_entrada, entradaDTOCreate));
     }
 
     //delete
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id_entrada) {
-        entradaService.deleteEntrada(id_entrada);
+    @DeleteMapping("/{id_dashboard}/{id_entrada}")
+    public ResponseEntity<Void> delete(
+            @PathVariable Long id_dashboard,
+            @PathVariable Long id_entrada
+    ) {
+        entradaService.deleteEntrada(id_entrada, id_dashboard);
         return ResponseEntity.noContent().build();
     }
 

@@ -1,6 +1,7 @@
 package com.sytem.financeiropersonal.controller;
 
 import com.sytem.financeiropersonal.dto.DashboardDTO;
+import com.sytem.financeiropersonal.dto.RequestDash;
 import com.sytem.financeiropersonal.service.DashboardService;
 import com.sytem.financeiropersonal.service.UserEntityService;
 import org.springframework.http.ResponseEntity;
@@ -20,27 +21,16 @@ public class DashboardController {
         this.dashboardService = dashboardService;
     }
 
-    //getAll by user;
-    @GetMapping("/list")
-    public ResponseEntity<List<DashboardDTO>> findAllByUser(
-            Authentication authentication
-    ){
-        String email =  authentication.getName();
-        return ResponseEntity.ok().body(dashboardService.findAllDashboard(email));
-    }
-
     //getById by user;
     @GetMapping("/{id}")
-    public ResponseEntity<DashboardDTO> findDashboardById(@PathVariable Long id,  Authentication authentication){
-        String email =  authentication.getName();
-        return ResponseEntity.ok().body(dashboardService.findDashboardById(id, email));
+    public ResponseEntity<DashboardDTO> findDashboardById(@PathVariable Long id, @RequestBody RequestDash id_mes) {
+        return ResponseEntity.ok().body(dashboardService.findDashboardById(id, id_mes));
     }
 
     //create a new dashboard;
     @PostMapping
-    public ResponseEntity<DashboardDTO> createDashboard(Authentication authentication){
-        String email =  authentication.getName();
-        DashboardDTO dashboard = dashboardService.createDashboard(authentication.getName());
+    public ResponseEntity<DashboardDTO> createDashboard(@RequestBody RequestDash id_mes){
+        DashboardDTO dashboard = dashboardService.createDashboard(id_mes);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(dashboard.id()).toUri();
 
         return ResponseEntity.created(uri).body(dashboard);
@@ -48,10 +38,8 @@ public class DashboardController {
 
     //delete dashboard;
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteDashboard(@PathVariable Long id,  Authentication authentication){
-        String email =  authentication.getName();
+    public ResponseEntity<Void> deleteDashboard(@PathVariable Long id){
         dashboardService.deleteDashboardById(id);
-
         return ResponseEntity.noContent().build();
     }
 
