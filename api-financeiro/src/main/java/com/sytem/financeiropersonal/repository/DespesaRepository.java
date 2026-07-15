@@ -5,8 +5,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface DespesaRepository extends JpaRepository<Despesa, Long> {
-    List<Despesa> findByDashboard(Long id_dashboard);
+    List<Despesa> findByDashboardId(Long dashboardId);
+    Optional<Despesa> findByIdAndDashboardId(Long id, Long dashboardId);
 }
