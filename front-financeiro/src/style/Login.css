@@ -1,0 +1,180 @@
+.container {
+    width: 100%;
+    min-height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 20px;
+    background: linear-gradient(220deg, #255ff0, #1b1864);
+}
+
+.content-card {
+    width: 100%;
+    max-width: 900px;
+
+    border: 1px solid white;
+    border-radius: 15px;
+
+    padding: 30px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 40px;
+
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(3px);
+}
+
+/* LADO ESQUERDO */
+
+.header-login {
+    flex: 1;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    color: white;
+    text-align: center;
+}
+
+.header-login img {
+    width: 120px;
+    height: 120px;
+
+    background: #07003d;
+
+    border-radius: 50%;
+
+    padding: 20px;
+
+    margin-bottom: 20px;
+}
+
+.header-login h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+.header-login p {
+    max-width: 400px;
+    font-size: 1.1rem;
+    line-height: 1.5;
+}
+
+/* CARD LOGIN */
+
+.content-login {
+    width: 100%;
+    max-width: 350px;
+
+    background: #f4f4f4;
+
+    border-radius: 12px;
+
+    padding: 30px;
+}
+
+.content-login h2 {
+    text-align: center;
+    font-size: 2rem;
+
+    color: #090044;
+
+    margin-bottom: 25px;
+}
+
+.content-login form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.content-login input {
+    width: 100%;
+
+    padding: 14px;
+
+    border: 1px solid #ccc;
+    border-radius: 12px;
+
+    outline: none;
+
+    font-size: 1rem;
+}
+
+.content-login input:focus {
+    border: 1px solid #2f5cff;
+}
+
+/* BOTÃO PRINCIPAL */
+
+.content-login button[type="submit"] {
+    background: #07003d;
+
+    color: white;
+
+    border: none;
+    border-radius: 12px;
+
+    padding: 14px;
+
+    font-size: 1rem;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+.content-login button[type="submit"]:hover {
+    opacity: 0.9;
+    transform: scale(1.01);
+}
+
+/* BOTÃO CRIAR CONTA */
+
+.content-login button[type="button"] {
+    background: transparent;
+    border: none;
+
+    color: #2f2fff;
+
+    text-align: left;
+
+    cursor: pointer;
+
+    font-size: 1rem;
+}
+
+.content-login button[type="button"]:hover {
+    text-decoration: underline;
+}
+
+/* RESPONSIVO */
+
+@media (max-width: 768px) {
+
+    .content-card {
+        flex-direction: column;
+
+        text-align: center;
+
+        padding: 25px;
+    }
+
+    .header-login h1 {
+        font-size: 2rem;
+    }
+
+    .header-login p {
+        font-size: 1rem;
+    }
+
+    .content-login {
+        max-width: 100%;
+    }
+}
