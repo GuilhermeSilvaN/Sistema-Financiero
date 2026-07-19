@@ -40,9 +40,7 @@ export default function ListRelatorio() {
             </div>
 
             {
-                dashboard.map((dash)=>(
-                    
-                ))
+                
             }
 
         </div>
